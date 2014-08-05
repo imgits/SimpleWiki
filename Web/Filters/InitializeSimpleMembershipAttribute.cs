@@ -4,9 +4,11 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using Web.Models;
+using SimpleWiki.Web.Models;
+using SimpleWiki.DataProvider;
 
-namespace Web.Filters
+
+namespace SimpleWiki.Web.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute

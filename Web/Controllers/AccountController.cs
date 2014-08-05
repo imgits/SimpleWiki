@@ -8,10 +8,11 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using Web.Filters;
-using Web.Models;
+using SimpleWiki.Web.Filters;
+using SimpleWiki.Web.Models;
+using SimpleWiki.DataProvider;
 
-namespace Web.Controllers
+namespace SimpleWiki.Web.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]

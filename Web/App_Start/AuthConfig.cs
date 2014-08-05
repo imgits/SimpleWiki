@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
-using Web.Models;
+using SimpleWiki.Web.Models;
 
-namespace Web
+namespace SimpleWiki.Web
 {
     public static class AuthConfig
     {

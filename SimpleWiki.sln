@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{AF5BAB1B-7406-4899-BEB1-B6A554F42F2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProvider", "DataProvider\DataProvider.csproj", "{B7EEAC87-3019-4949-95A8-D02DDFF96DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigSetting", "ConfigSetting\ConfigSetting.csproj", "{0B042411-D68F-459F-A07A-580848651C0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{AF5BAB1B-7406-4899-BEB1-B6A554F42F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF5BAB1B-7406-4899-BEB1-B6A554F42F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF5BAB1B-7406-4899-BEB1-B6A554F42F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7EEAC87-3019-4949-95A8-D02DDFF96DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7EEAC87-3019-4949-95A8-D02DDFF96DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7EEAC87-3019-4949-95A8-D02DDFF96DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7EEAC87-3019-4949-95A8-D02DDFF96DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B042411-D68F-459F-A07A-580848651C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B042411-D68F-459F-A07A-580848651C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B042411-D68F-459F-A07A-580848651C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B042411-D68F-459F-A07A-580848651C0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
