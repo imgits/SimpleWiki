@@ -8,14 +8,14 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using SimpleWiki.Web.Filters;
 using SimpleWiki.Web.Models;
 using SimpleWiki.DataProvider;
+using SimpleWikiUser = SimpleWiki.DataProvider.Entities.User;
+using SimpleWiki.WebUtil;
 
 namespace SimpleWiki.Web.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //
@@ -36,7 +36,8 @@ namespace SimpleWiki.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            SimpleWikiUser user = WikiSecurity.Login(model.UserName, model.Password, model.RememberMe);
+            if (ModelState.IsValid && user != null)
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -80,8 +81,7 @@ namespace SimpleWiki.Web.Controllers
                 // 尝试注册用户
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
+                    SimpleWikiUser user = WikiSecurity.CreateAccountAndLogin(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -156,7 +156,7 @@ namespace SimpleWiki.Web.Controllers
                     bool changePasswordSucceeded;
                     try
                     {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+                        changePasswordSucceeded = AccountProvider.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
                     }
                     catch (Exception)
                     {
@@ -187,7 +187,7 @@ namespace SimpleWiki.Web.Controllers
                 {
                     try
                     {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
+                        AccountProvider.CreateAccount(User.Identity.Name, model.NewPassword);
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception)
@@ -264,14 +264,14 @@ namespace SimpleWiki.Web.Controllers
             if (ModelState.IsValid)
             {
                 // 将新用户插入到数据库
-                using (UsersContext db = new UsersContext())
+                using (SimpleWikiContext db = new SimpleWikiContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    SimpleWikiUser user = db.Users.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // 检查用户是否已存在
                     if (user == null)
                     {
                         // 将名称插入到配置文件表
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.Users.Add(new SimpleWikiUser { UserName = model.UserName });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
@@ -325,7 +325,7 @@ namespace SimpleWiki.Web.Controllers
                 });
             }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(AccountProvider.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 

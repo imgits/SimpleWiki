@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.Entity;
-using MySql.Data.Entity;
-using System.Data.Common;
 
-namespace SimpleWiki.ConfigSetting
+namespace SimpleWiki.SystemUtil
 {
     /// <summary>
     /// System global settings.
@@ -17,14 +14,5 @@ namespace SimpleWiki.ConfigSetting
         /// Get or set the system global settings.
         /// </summary>
         public static string MYSQL_CONNECTION_STRING = "server=localhost;database=simplewiki;uid=root;pwd=;";
-
-        public static DbConnection MYSQL_CONNECTION
-        {
-            get
-            {
-                MySqlConnectionFactory factory = new MySqlConnectionFactory();
-                return factory.CreateConnection(MYSQL_CONNECTION_STRING);
-            }
-        }
     }
 }

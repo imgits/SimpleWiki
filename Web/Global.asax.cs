@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SimpleWiki.DataProvider;
+using System.Data.Entity.Infrastructure;
 
 namespace SimpleWiki.Web
 {
@@ -16,6 +18,14 @@ namespace SimpleWiki.Web
     {
         protected void Application_Start()
         {
+            using (var context = new SimpleWikiContext())
+            {
+                if (!context.Database.Exists())
+                {
+                    ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                }
+            }
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
