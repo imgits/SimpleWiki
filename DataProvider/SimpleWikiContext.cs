@@ -34,5 +34,7 @@ namespace SimpleWiki.DataProvider
         public DbSet<Group> Groups { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserFriend> UserFriends { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Section> Sections { get; set; }
     }
 }

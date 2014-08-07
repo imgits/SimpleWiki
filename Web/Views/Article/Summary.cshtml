@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Summary";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper" id="createarea">
+            <hgroup class="title">
+                <h1>Start here!</h1>
+            </hgroup>
+            <p>
+                To create a new article, from 
+                <a href="javascript:void;" title="submit to create new article" onclick="createArticle();">here</a>
+            </p>
+        </div>
+    </section>
+}
+
+<h3>You submit the article is following:</h3>
+<ol class="round">
+    <li>
+        <h5>Getting Started</h5>
+        How to getting start the simple wiki
+        <a href="@Url.Action("Index")">Learn more…</a>
+    </li>
+</ol>
+
+<script type="text/javascript">
+    function createArticle() {
+        $.post("/article/operate/create", {},
+            function (result) {
+                $("#createarea").append(result);
+            }
+        );
+
+    }
+</script>

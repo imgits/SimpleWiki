@@ -36,17 +36,24 @@ namespace SimpleWiki.DataProvider.Entities
         public string UserName { get; set; }
 
         [MaxLength(128)]
-        public string Password { get; set; }
+        public string HashPwd { get; set; }
 
         [MaxLength(30)]
         public string Email { get; set; }
 
-        public Nullable<int> Logtype { get; set; }
+        [Required]
+        public DateTime RegTime { get; set; }
+        
+        /// <summary>
+        /// for third part login.
+        /// </summary>
+        public string Provider { get; set; }
 
-        public Nullable<System.DateTime> RegTime { get; set; }
-
-        [MaxLength(32)]
-        public string Openid { get; set; }
+        /// <summary>
+        /// for third part login
+        /// </summary>
+        [MaxLength(100)]
+        public string ProviderUserID { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
 

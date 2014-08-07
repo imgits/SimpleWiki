@@ -29,6 +29,7 @@ namespace SimpleWiki.DataProvider.Entities
         public int ArticleID { get; set; }
 
         [MaxLength(100)]
+        [Required]
         public string Title { get; set; }
 
         public DateTime PublishTime { get; set; }

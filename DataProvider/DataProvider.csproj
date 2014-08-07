@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountProvider.cs" />
+    <Compile Include="ArticleProvider.cs" />
     <Compile Include="DbUtil.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Group.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserAppend.cs" />
     <Compile Include="Entities\UserFriend.cs" />
+    <Compile Include="MysqlDatabase.cs" />
     <Compile Include="SimpleWikiContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,7 +73,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigSetting\SystemUtil.csproj">
+    <ProjectReference Include="..\SystemUtil\SystemUtil.csproj">
       <Project>{0b042411-d68f-459f-a07a-580848651c0a}</Project>
       <Name>SystemUtil</Name>
     </ProjectReference>

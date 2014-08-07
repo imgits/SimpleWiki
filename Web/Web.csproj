@@ -190,11 +190,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +311,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Article\Summary.cshtml" />
+    <Content Include="Views\Article\_CreateArticlePartial.cshtml" />
+    <Content Include="Views\Article\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,10 +323,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigSetting\SystemUtil.csproj">
-      <Project>{0b042411-d68f-459f-a07a-580848651c0a}</Project>
-      <Name>SystemUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataProvider\DataProvider.csproj">
       <Project>{b7eeac87-3019-4949-95a8-d02ddff96df6}</Project>
       <Name>DataProvider</Name>

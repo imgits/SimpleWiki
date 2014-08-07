@@ -12,6 +12,7 @@ using SimpleWiki.Web.Models;
 using SimpleWiki.DataProvider;
 using SimpleWikiUser = SimpleWiki.DataProvider.Entities.User;
 using SimpleWiki.WebUtil;
+using System.Security.Principal;
 
 namespace SimpleWiki.Web.Controllers
 {
@@ -39,6 +40,7 @@ namespace SimpleWiki.Web.Controllers
             SimpleWikiUser user = WikiSecurity.Login(model.UserName, model.Password, model.RememberMe);
             if (ModelState.IsValid && user != null)
             {
+                HttpContext.User = new GenericPrincipal(new GenericIdentity(user.UserName), null);
                 return RedirectToLocal(returnUrl);
             }
 
@@ -54,7 +56,7 @@ namespace SimpleWiki.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
+            WikiSecurity.Logout();
 
             return RedirectToAction("Index", "Home");
         }
@@ -110,7 +112,7 @@ namespace SimpleWiki.Web.Controllers
                 // 使用事务来防止用户删除其上次使用的登录凭据
                 using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+                    bool hasLocalAccount = AccountProvider.HasLocalAccount(User.Identity.Name);
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
                     {
                         OAuthWebSecurity.DeleteAccount(provider, providerUserId);
@@ -133,7 +135,7 @@ namespace SimpleWiki.Web.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "已设置你的密码。"
                 : message == ManageMessageId.RemoveLoginSuccess ? "已删除外部登录。"
                 : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalPassword = AccountProvider.HasLocalAccount(User.Identity.Name);
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
@@ -145,7 +147,7 @@ namespace SimpleWiki.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model)
         {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            bool hasLocalAccount = AccountProvider.HasLocalAccount(User.Identity.Name);
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasLocalAccount)
@@ -311,9 +313,9 @@ namespace SimpleWiki.Web.Controllers
         [ChildActionOnly]
         public ActionResult RemoveExternalLogins()
         {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+            IList<SimpleWikiUser> accounts = AccountProvider.GetOAuthAccountsFromUserName(User.Identity.Name);
             List<ExternalLogin> externalLogins = new List<ExternalLogin>();
-            foreach (OAuthAccount account in accounts)
+            foreach (SimpleWikiUser account in accounts)
             {
                 AuthenticationClientData clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider);
 
@@ -321,11 +323,11 @@ namespace SimpleWiki.Web.Controllers
                 {
                     Provider = account.Provider,
                     ProviderDisplayName = clientData.DisplayName,
-                    ProviderUserId = account.ProviderUserId,
+                    ProviderUserId = account.ProviderUserID,
                 });
             }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(AccountProvider.GetUserId(User.Identity.Name));
+            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || AccountProvider.HasLocalAccount(User.Identity.Name);
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
@@ -338,7 +340,7 @@ namespace SimpleWiki.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(User.Identity.Name, "Article");
             }
         }
 

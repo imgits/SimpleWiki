@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimpleWiki.SystemUtil</RootNamespace>
-    <AssemblyName>SimpleWiki.ConfigSetting</AssemblyName>
+    <AssemblyName>SimpleWiki.SystemUtil</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="ConfigSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
