@@ -1,7 +1,23 @@
-﻿@model SimpleWiki.Web.Models.ArticleDetailModel
+﻿@model SimpleWiki.DataProvider.Entities.Article
 
 @{
     ViewBag.Title = "Detail";
 }
 
 <h2>@Model.Title</h2>
+<section id="content-article" contenteditable="true">
+    <h3>章节标题</h3>
+    <p>章节内容</p>
+</section>
+
+<script>
+    var content = $("#content-article");
+
+    content.focus(function () {
+        document.designMode = "On";
+    });
+
+    content.blur(function () {
+        document.designMode = "Off";
+    });
+</script>

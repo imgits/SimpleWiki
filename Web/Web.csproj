@@ -314,6 +314,7 @@
     <Content Include="Views\Article\Summary.cshtml" />
     <Content Include="Views\Article\_CreateArticlePartial.cshtml" />
     <Content Include="Views\Article\Detail.cshtml" />
+    <Content Include="Views\Article\_ArticleListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

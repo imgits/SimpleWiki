@@ -1,0 +1,11 @@
+﻿@using SimpleWiki.DataProvider.Entities;
+@model IList<SimpleWiki.DataProvider.Entities.Article>
+
+<h3>You submit the article is following:</h3>
+<ol class="round">
+    @foreach(Article article in Model){
+    <li>
+        <h5><a href="/article/@article.OwnedUser.UserName/@article.Title">@article.Title</a></h5>
+    </li>
+    }
+</ol>

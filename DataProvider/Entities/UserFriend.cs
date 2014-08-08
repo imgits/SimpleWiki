@@ -23,11 +23,18 @@ namespace SimpleWiki.DataProvider.Entities
         public string Remark { get; set; }
 
         public int GroupID { get; set; }
-    
+
+        [ForeignKey("GroupID")]
         public virtual Group Group { get; set; }
 
+        public int MasterID { get; set; }
+
+        [ForeignKey("MasterID")]
         public virtual User Master { get; set; }
 
+        public int FriendID { get; set; }
+        
+        [ForeignKey("FriendID")]
         public virtual User Friend { get; set; }
     }
 }

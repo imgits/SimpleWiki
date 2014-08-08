@@ -19,13 +19,12 @@ namespace SimpleWiki.DataProvider.Entities
         [MaxLength(30)]
         public string GroupName { get; set; }
 
-        //[Index]
-        //public int OwnedUser { get; set; }
-
         [MaxLength(200)]
         public string Remark { get; set; }
 
-        [Index]
+        public int OwnedUserID { get; set; }
+
+        [ForeignKey("OwnedUserID")]
         public virtual User OwnedUser { get; set; }
 
         public virtual ICollection<UserFriend> UserFriends { get; set; }

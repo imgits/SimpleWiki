@@ -22,11 +22,9 @@ namespace SimpleWiki.DataProvider
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>().HasRequired(g=>g.OwnedUser).WithMany(u=>u.Groups).Map(m=>m.MapKey("OwnedUserID"));
             modelBuilder.Entity<UserFriend>().HasRequired(f => f.Master).WithMany(u=>u.UserFriends).Map(m => m.MapKey("MasterID"));
             modelBuilder.Entity<UserFriend>().HasRequired(f => f.Friend).WithMany().Map(m => m.MapKey("FriendID"));
-            modelBuilder.Entity<Article>().HasRequired(a => a.User).WithMany(u => u.Articles).Map(m => m.MapKey("UserID"));
-            modelBuilder.Entity<Section>().HasRequired(s => s.OwnedArticle).WithMany(a => a.Sections).Map(m => m.MapKey("OwnedArticleID"));
+            modelBuilder.Entity<UserFriend>().HasRequired(f => f.Group).WithMany(g => g.UserFriends).Map(m => m.MapKey("GroupID"));
         }
 
         public DbSet<User> Users { get; set; }

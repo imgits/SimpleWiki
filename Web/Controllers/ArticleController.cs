@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SimpleWiki.Web.Models;
 using SimpleWiki.DataProvider;
+using SimpleWiki.DataProvider.Entities;
 
 namespace SimpleWiki.Web.Controllers
 {
@@ -13,8 +14,9 @@ namespace SimpleWiki.Web.Controllers
         //
         // GET: /Article/
 
-        public ActionResult Summary()
+        public ActionResult Summary(string username)
         {
+            ViewBag.UserName = username;
             return View();
         }
 
@@ -32,7 +34,14 @@ namespace SimpleWiki.Web.Controllers
 
         public ActionResult Detail(ArticleDetailModel model)
         {
-            return View(model);
+            Article article = ArticleProvider.GetArticle(model.UserName, model.Title);
+            return View(article);
+        }
+
+        public ActionResult ArticleList(string username)
+        {
+            IList<Article> articles = ArticleProvider.GetUserArticles(username);
+            return PartialView("_ArticleListPartial", articles);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace SimpleWiki.Web.Controllers
                 try
                 {
                     SimpleWikiUser user = WikiSecurity.CreateAccountAndLogin(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("/article/" + user.UserName);
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -340,7 +340,7 @@ namespace SimpleWiki.Web.Controllers
             }
             else
             {
-                return RedirectToAction(User.Identity.Name, "Article");
+                return Redirect("/article/"+User.Identity.Name);
             }
         }
 

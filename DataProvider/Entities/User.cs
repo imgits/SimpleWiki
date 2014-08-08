@@ -26,6 +26,7 @@ namespace SimpleWiki.DataProvider.Entities
             this.Groups = new HashSet<Group>();
             this.UserFriends = new HashSet<UserFriend>();
             this.Roles = new HashSet<Role>();
+            this.Articles = new HashSet<Article>();
         }
 
         [Key]

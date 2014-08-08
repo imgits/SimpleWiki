@@ -16,14 +16,7 @@
     </section>
 }
 
-<h3>You submit the article is following:</h3>
-<ol class="round">
-    <li>
-        <h5>Getting Started</h5>
-        How to getting start the simple wiki
-        <a href="@Url.Action("Index")">Learn more…</a>
-    </li>
-</ol>
+@Html.Action("articlelist", new { username = ViewBag.UserName })
 
 <script type="text/javascript">
     function createArticle() {

@@ -25,7 +25,8 @@ namespace SimpleWiki.DataProvider.Entities
             Sections = new List<Section>();
         }
 
-        [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ArticleID { get; set; }
 
         [MaxLength(100)]
@@ -34,7 +35,10 @@ namespace SimpleWiki.DataProvider.Entities
 
         public DateTime PublishTime { get; set; }
 
-        public User User { get; set; }
+        public int OwnedUserID { get; set; }
+        
+        [ForeignKey("OwnedUserID")]
+        public virtual User OwnedUser { get; set; }
 
         public virtual IList<Section> Sections { get; set; }
     }
@@ -62,8 +66,12 @@ namespace SimpleWiki.DataProvider.Entities
         [ForeignKey("SubSections")]
         public Nullable<long> OwnedSectionID { get; set; }
 
+        public int OwnedArticleID { get; set; }
+
+        [ForeignKey("OwnedArticleID")]
+        public virtual Article OwnedArticle { get; set; }
+
         public virtual IList<Section> SubSections { get; set; }
         public virtual Section ParentSection { get; set; }
-        public virtual Article OwnedArticle { get; set; }
     }
 }
